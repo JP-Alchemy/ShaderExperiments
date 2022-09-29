@@ -2,7 +2,7 @@ import { Application } from "../Application"
 import Environment from "./Environment";
 import type GUI from "lil-gui";
 import * as THREE from 'three';
-import { writable } from "svelte/store";
+import { default_fragment_shader, default_vertex_shader } from "../shaders/default/default.s";
 
 export default class World {
     private app: Application;
@@ -10,6 +10,7 @@ export default class World {
     environment!: Environment;
     isReady = false;
     debug!: GUI;
+    uniforms: { [uniform: string]: THREE.IUniform<any>; } = {};
 
     constructor() {
         this.app = new Application();
@@ -24,13 +25,29 @@ export default class World {
     async OnReady() {
         this.environment = new Environment();
 
-        const cube = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshPhysicalMaterial({ color: 0xFF0FFF }));
-        cube.position.set(0,0,0);
-        this.app.scene.add(cube);
-        
+        const geometry = new THREE.PlaneBufferGeometry(2, 2);
+
+        console.log(this.app.screen.resolution);
+        this.uniforms = {
+            u_time: { value: 0.0 },
+            u_resolution: { value: this.app.screen.resolution },
+            u_mouse: { value: this.app.raycaster.mouse }
+        };
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: default_vertex_shader,
+            fragmentShader: default_fragment_shader,
+            uniforms: this.uniforms
+        });
+
+        const mesh = new THREE.Mesh(geometry, material);
+
+        this.app.scene.add(mesh);
+
         console.log("World Ready");
     }
 
     Update() {
+        this.uniforms.u_time.value = this.app.time.clock.getDelta();
     }
 }

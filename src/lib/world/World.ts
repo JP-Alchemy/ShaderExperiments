@@ -3,6 +3,7 @@ import Environment from "./Environment";
 import type GUI from "lil-gui";
 import * as THREE from 'three';
 import { default_fragment_shader, default_vertex_shader } from "../shaders/default/default.s";
+import { hw_fragment_shader } from "$lib/shaders/chapter_05/default.s";
 
 export default class World {
     private app: Application;
@@ -36,7 +37,7 @@ export default class World {
 
         const material = new THREE.ShaderMaterial({
             vertexShader: default_vertex_shader,
-            fragmentShader: default_fragment_shader,
+            fragmentShader: hw_fragment_shader,
             uniforms: this.uniforms
         });
 

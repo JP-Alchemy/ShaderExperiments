@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    cursor: none;
+}
+
+html,
+body {
+    overflow: hidden;
+}
+
+.webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+.rounded {
+    pointer-events: none;
+    width: 30px;
+    height: 30px;
+    border: 2px solid rgb(36 36 36);
+    border-radius: 50%;
+    z-index: 99999;
+    position: absolute;
+    margin-left: -15px;
+    margin-top: -15px;
+    transform: rotate3d(1, 2, -1, 192deg);
+}

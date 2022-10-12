@@ -30,6 +30,8 @@ export class Raycaster {
         this.mouse.y = -(e.clientY / this.app.screen.height) * 2 + 1;
         this.cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) ${this.rotateCursor}`;
         this.isMouseActive = true;
+        this.app.world.uniforms.u_mouse.value.x = e.pageX;
+        this.app.world.uniforms.u_mouse.value.y = e.pageY;
     }
 
     public Update() {

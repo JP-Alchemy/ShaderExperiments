@@ -9,6 +9,15 @@ import { chp_6_SpinHSB_f } from "$lib/shaders/chapter_06/spinHSB/default.s";
 import { chp_7_box_f } from "$lib/shaders/chapter_07/box/default.s";
 import { chp_7_cirlce_f } from "$lib/shaders/chapter_07/circle/default.s";
 import { chp_7_shapes_f } from "$lib/shaders/chapter_07/shapes/default.s";
+import { chp_8_translation } from "$lib/shaders/chapter_07/translation/default.s";
+import { chp_8_hud } from "$lib/shaders/chapter_07/hud/default.s";
+import { chp_9_tiles_f } from "$lib/shaders/chapter_09/tiles/default.s";
+import { chp_9_tilesAnim_f } from "$lib/shaders/chapter_09/tileAnim/default.s";
+import { chp_9_brick_f } from "$lib/shaders/chapter_09/brick/default.s";
+import { chp_9_movcirc_f } from "$lib/shaders/chapter_09/movingCircles/default.s";
+import { chp_9_tilesAnim2_f } from "$lib/shaders/chapter_09/tileAnim2/default.s";
+import { ShiftBarcode } from "$lib/shaders/10_GenerativeDesigns/ShiftBarcode/default.s";
+import { TrafficSpeed } from "$lib/shaders/10_GenerativeDesigns/traffic/default.s";
 
 export default class World {
     private app: Application;
@@ -40,7 +49,7 @@ export default class World {
 
         const material = new THREE.ShaderMaterial({
             vertexShader: default_vertex_shader,
-            fragmentShader: chp_7_shapes_f,
+            fragmentShader: TrafficSpeed,
             uniforms: this.uniforms
         });
 
@@ -52,6 +61,6 @@ export default class World {
     }
 
     Update() {
-        this.uniforms.u_time.value += this.app.time.clock.getDelta();
+        this.uniforms.u_time.value += this.app.time.clock.getDelta() * 30.0;
     }
 }
